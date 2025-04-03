@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Create() {
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -30,12 +32,17 @@ function Create() {
       if (!response.ok) {
         // 💡 Ensure backend sends `{ error: "message" }`
         setError(result.error || "Failed to add user.");
-      } else {
+      } 
+      
+      if (response.ok) {
         console.log("User added successfully:", result);
         setName("");
         setAge(0);
         setEmail("");
-        setError(""); // Clear error if successful
+        setError(""); 
+        // Clear error if successful
+      navigate("/all");
+      // Redirect to the Read component
       }
     } catch (err) {
       setError("Failed to connect to the server.");
@@ -44,11 +51,11 @@ function Create() {
 
   return (
     <div className="container my-2">
-      {error && (
+      {error &&
         <div className="alert alert-danger" role="alert">
           {error}
         </div>
-      )}
+      }
       <h2>Enter the data</h2>
 
       <form onSubmit={handleSubmit}>
