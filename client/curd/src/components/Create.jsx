@@ -30,19 +30,15 @@ function Create() {
       const result = await response.json();
 
       if (!response.ok) {
-        // 💡 Ensure backend sends `{ error: "message" }`
         setError(result.error || "Failed to add user.");
-      } 
-      
+      }
+
       if (response.ok) {
-        console.log("User added successfully:", result);
         setName("");
-        setAge(0);
+        setAge("");
         setEmail("");
-        setError(""); 
-        // Clear error if successful
-      navigate("/all");
-      // Redirect to the Read component
+        setError("");
+        navigate("/all");
       }
     } catch (err) {
       setError("Failed to connect to the server.");
@@ -50,17 +46,18 @@ function Create() {
   };
 
   return (
-    <div className="container my-2">
-      {error &&
+    <div className="container my-4">
+      {error && (
         <div className="alert alert-danger" role="alert">
           {error}
         </div>
-      }
-      <h2>Enter the data</h2>
-
-      <form onSubmit={handleSubmit}>
+      )}
+      <h2 className="text-center mb-4">Create User</h2>
+      <form onSubmit={handleSubmit} className="shadow p-4 rounded bg-light">
         <div className="mb-3">
-          <label htmlFor="name" className="form-label">Name</label>
+          <label htmlFor="name" className="form-label">
+            Name
+          </label>
           <input
             type="text"
             className="form-control"
@@ -72,7 +69,9 @@ function Create() {
         </div>
 
         <div className="mb-3">
-          <label htmlFor="age" className="form-label">Age</label>
+          <label htmlFor="age" className="form-label">
+            Age
+          </label>
           <input
             type="number"
             className="form-control"
@@ -85,7 +84,9 @@ function Create() {
         </div>
 
         <div className="mb-3">
-          <label htmlFor="email" className="form-label">Email address</label>
+          <label htmlFor="email" className="form-label">
+            Email address
+          </label>
           <input
             type="email"
             className="form-control"
@@ -94,12 +95,9 @@ function Create() {
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-          <div className="form-text">
-            We'll never share your email with anyone else.
-          </div>
         </div>
 
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className="btn btn-primary w-100">
           Submit
         </button>
       </form>
