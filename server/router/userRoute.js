@@ -1,8 +1,13 @@
+// basic mern dervice
+
+
+
+
 const express = require("express");
 const router = express.Router();
 const User = require("../models/user");
 
-// ✅ Create user
+// ✅ Create us
 router.post("/", async (req, res) => {
   const { name, email, age } = req.body;
 
